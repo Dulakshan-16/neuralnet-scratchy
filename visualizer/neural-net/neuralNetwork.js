@@ -5,11 +5,7 @@ const math = create(all, config);
 
 const sigmoid = (z) => 1 / (1 + math.exp(-z));
 
-const relu = (z) => {
-  if (z <= 0) return 0;
-
-  return z;
-};
+const relu = (z) => math.max(0, z);
 
 class Neuron {
   constructor(weights, x, bias, activation = "sg") {
