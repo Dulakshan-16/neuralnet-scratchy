@@ -4,12 +4,13 @@ import Layer from "./Layer.js";
 const config = {};
 const math = create(all, config);
 
-const inputs = [1, 2, 3, 4, 5];
+const input = [1, 2, 3, 4, 5];
 
 const layer = new Layer({
   nodes: 2,
   activation: "relu",
-  inputShape: inputs.length,
+  inputShape: input.length,
+  input: input,
 });
 
 console.log(layer);

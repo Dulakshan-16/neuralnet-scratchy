@@ -3,6 +3,7 @@ import activations from "./activationFunctions.js";
 
 class Layer {
   constructor(args) {
+    // Determine activation function
     if (!args.activation) this.activation = activations["linear"];
 
     if (args.activation in activations)
@@ -19,6 +20,8 @@ class Layer {
         activation: this.activation,
       })
     );
+
+    this.input = args.input;
   }
 }
 
