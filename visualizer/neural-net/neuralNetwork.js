@@ -1,29 +1,15 @@
 import { create, all } from "mathjs";
+import Layer from "./Layer.js";
 
 const config = {};
 const math = create(all, config);
 
-const sigmoid = (z) => 1 / (1 + math.exp(-z));
+const inputs = [1, 2, 3, 4, 5];
 
-const relu = (z) => math.max(0, z);
+const layer = new Layer({
+  nodes: 2,
+  activation: "relu",
+  inputShape: inputs.length,
+});
 
-class Neuron {
-  constructor(weights, x, bias, activation = "sg") {
-    this.w = weights;
-    this.x = x;
-    this.b = bias;
-
-    if (activation === "sig") this.activation = sigmoid;
-    else if (activation === "relu") this.activation = relu;
-  }
-
-  compute_z() {
-    return math.dot(this.w, this.x) + this.b;
-  }
-  computeOutput() {
-    const z = this.compute_z();
-    return this.activation(z);
-  }
-}
-
-export default Neuron;
+console.log(layer);
