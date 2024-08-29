@@ -37,6 +37,8 @@ class Layer {
 
     this.input = args.input;
   }
+
+  computeLayerOutput = () => this.nodes.map((node) => node.computeOutput());
 }
 
 export default Layer;

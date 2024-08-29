@@ -1,6 +1,4 @@
 import { create, all } from "mathjs";
-import activations from "./activationFunctions.js";
-import { randomWeight } from "./utils.js";
 
 const config = {};
 const math = create(all, config);
@@ -18,7 +16,7 @@ class Neuron {
   }
 
   computeOutput() {
-    const z = this.compute_z();
+    const z = this.computeZ();
     return this.activation(z);
   }
 }

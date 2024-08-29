@@ -14,3 +14,5 @@ const layer = new Layer({
 });
 
 console.log(layer);
+
+console.log("Output:", layer.computeLayerOutput());
