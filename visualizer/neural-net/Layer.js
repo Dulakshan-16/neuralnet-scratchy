@@ -1,5 +1,11 @@
+import { create, all } from "mathjs";
+
 import Neuron from "./Neuron.js";
 import activations from "./activationFunctions.js";
+import { generateRandomWeightMatrix } from "./utils.js";
+
+const config = {};
+const math = create(all, config);
 
 class Layer {
   constructor(args) {
@@ -22,6 +28,11 @@ class Layer {
     );
 
     this.input = args.input;
+
+    // Initialize random weights if no weights are given
+    if (!args.weights) {
+      this.weights = generateRandomWeightMatrix(this.nodes.length, this.input.length);
+    }
   }
 }
 
