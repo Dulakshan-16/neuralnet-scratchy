@@ -4,7 +4,7 @@ import Layer from "./Layer.js";
 const config = {};
 const math = create(all, config);
 
-const input = [1, 2, 3, 4, 5];
+const input = [1, 2];
 
 const layer = new Layer({
   nodes: 2,

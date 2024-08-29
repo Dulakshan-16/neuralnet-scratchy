@@ -1,3 +1,5 @@
+import Neuron from "./Neuron.js";
+
 export const randomWeight = () => Math.random() * 2 - 1;
 
 export const generateRandomWeightMatrix = (rows, columns) => {
@@ -12,9 +14,26 @@ export const generateRandomWeightMatrix = (rows, columns) => {
 
     for (let j = 0; j < columns; j++) {
       weightMatrix[i][j] = randomWeight();
-      console.log(weightMatrix[i][j]);
+      // console.log(weightMatrix[i][j]);
     }
   }
 
   return weightMatrix;
+};
+
+export const initializeNodes = (input, weights, noNodes, activation) => {
+  let nodes = new Array(noNodes);
+
+  for (let i = 0; i < noNodes; i++) {
+    nodes[i] = new Neuron({
+      // Generate random weight when initliazing neuron
+      weights: weights[i],
+      // Set bias to 0
+      bias: 0,
+      activations: input,
+      activation: activation,
+    });
+  }
+
+  return nodes;
 };

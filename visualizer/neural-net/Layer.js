@@ -1,8 +1,12 @@
-import { create, all } from "mathjs";
+import { create, all, random } from "mathjs";
 
 import Neuron from "./Neuron.js";
 import activations from "./activationFunctions.js";
-import { generateRandomWeightMatrix } from "./utils.js";
+import {
+  randomWeight,
+  generateRandomWeightMatrix,
+  initializeNodes,
+} from "./utils.js";
 
 const config = {};
 const math = create(all, config);
@@ -18,21 +22,20 @@ class Layer {
       this.activation = activations["linear"];
     }
 
-    this.nodes = new Array(args.nodes).fill(
-      new Neuron({
-        weights: NaN,
-        bias: NaN,
-        activations: NaN,
-        activation: this.activation,
-      })
+    // Initialize random weights if no weights are given
+    if (!args.weights) {
+      this.weights = generateRandomWeightMatrix(args.nodes, args.input.length);
+    }
+
+    // Create nodes for layer
+    this.nodes = initializeNodes(
+      args.input,
+      this.weights,
+      args.nodes,
+      this.activation
     );
 
     this.input = args.input;
-
-    // Initialize random weights if no weights are given
-    if (!args.weights) {
-      this.weights = generateRandomWeightMatrix(this.nodes.length, this.input.length);
-    }
   }
 }
 
