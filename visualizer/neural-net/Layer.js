@@ -13,6 +13,14 @@ const math = create(all, config);
 
 class Layer {
   constructor(args) {
+    this.inputShape = args.inputShape;
+
+    if (this.inputShape === 1) {
+      this.input = [args.input];
+    } else {
+      this.input = args.input;
+    }
+
     // Determine activation function
     if (!args.activation) this.activation = activations["linear"];
 
@@ -23,22 +31,35 @@ class Layer {
     }
 
     // Initialize random weights if no weights are given
-    if (!args.weights) {
-      this.weights = generateRandomWeightMatrix(args.nodes, args.input.length);
+    if (!args.weights && args.input) {
+      this.weights = generateRandomWeightMatrix(args.nodes, args.inputShape);
     }
 
     // Create nodes for layer
     this.nodes = initializeNodes(
-      args.input,
+      this.input,
       this.weights,
       args.nodes,
       this.activation
     );
-
-    this.input = args.input;
   }
 
-  computeLayerOutput = () => this.nodes.map((node) => node.computeOutput());
+  set setInput(newInput) {
+    if (this.inputShape === 1) {
+      this.input = [newInput];
+    } else {
+      this.input = newInput;
+    }
+
+    // Change input of each neuron
+    for (let i = 0; i < this.nodes.length; i++) {
+      this.nodes[i].x = this.input;
+    }
+  }
+
+  computeLayerOutput() {
+    return this.nodes.map((node) => node.computeOutput());
+  }
 }
 
 export default Layer;
