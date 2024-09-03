@@ -13,7 +13,7 @@ class Neuron {
 
   computeZ() {
     console.log(this.w, this.x);
-    
+
     return math.dot(this.w, this.x) + this.b;
   }
 

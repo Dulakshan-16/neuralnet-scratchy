@@ -37,3 +37,19 @@ export const initializeNodes = (input, weights, noNodes, activation) => {
 
   return nodes;
 };
+
+export const forwardPropogate = (input, layers) => {
+  let noLayers = layers.length;
+
+  layers[0].setInput(input);
+  for (let i = 1; i < noLayers; i++) {
+    let layerOutput = layers[i - 1].computeLayerOutput();
+
+    // Output of layer i - 1 is the input of layer i
+    layers[i].setInput(layerOutput);
+  }
+
+  let finalLayerOutput = layers[noLayers - 1].computeLayerOutput();
+
+  return finalLayerOutput;
+};

@@ -1,4 +1,5 @@
 import { create, all } from "mathjs";
+import Model from "./Model.js";
 import Layer from "./Layer.js";
 import { mse } from "./loss.js";
 
@@ -7,20 +8,8 @@ const math = create(all, config);
 
 const data = { x: [1, 2], y: [2, 4] };
 
-const layer = new Layer({
-  nodes: 1,
-  activation: "relu",
-  inputShape: 1,
-  input: data.x[0],
-});
+const model = new Model();
 
-console.log(layer);
+model.add(new Layer({ inputShape: 1, nodes: 1 }));
 
-let output = [layer.computeLayerOutput()];
-
-layer.setInput = data.x[1];
-
-output.push(layer.computeLayerOutput());
-
-let mseLoss = mse({ yHat: output, yTrue: data.y });
-
+model.fit(data.x, data.y);

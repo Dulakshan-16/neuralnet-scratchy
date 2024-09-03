@@ -2,11 +2,7 @@ import { create, all, random } from "mathjs";
 
 import Neuron from "./Neuron.js";
 import activations from "./activationFunctions.js";
-import {
-  randomWeight,
-  generateRandomWeightMatrix,
-  initializeNodes,
-} from "./utils.js";
+import { generateRandomWeightMatrix, initializeNodes } from "./utils.js";
 
 const config = {};
 const math = create(all, config);
@@ -31,7 +27,7 @@ class Layer {
     }
 
     // Initialize random weights if no weights are given
-    if (!args.weights && args.input) {
+    if (!args.weights) {
       this.weights = generateRandomWeightMatrix(args.nodes, args.inputShape);
     }
 
@@ -44,12 +40,15 @@ class Layer {
     );
   }
 
-  set setInput(newInput) {
+  setInput(newInput) {
+
     if (this.inputShape === 1) {
       this.input = [newInput];
     } else {
       this.input = newInput;
     }
+
+    console.log("updated input:", this.input);
 
     // Change input of each neuron
     for (let i = 0; i < this.nodes.length; i++) {
