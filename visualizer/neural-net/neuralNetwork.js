@@ -11,5 +11,8 @@ const data = { x: [1, 2], y: [2, 4] };
 const model = new Model();
 
 model.add(new Layer({ inputShape: 1, nodes: 1 }));
+model.add(new Layer({ nodes: 2 }));
 
-model.fit(data.x, data.y);
+console.log(model);
+
+// model.fit(data.x, data.y);

@@ -1,9 +1,9 @@
-export const mse = (data) => {
+export const mse = (yTrue, yHat) => {
   let loss = 0;
   let size = data.yTrue.length;
 
   for (let i = 0; i < size; i++) {
-    loss += (data.yHat[i] - data.yTrue[i]) ** 2;
+    loss += (yHat[i] - yTrue[i]) ** 2;
   }
 
   return loss / size;

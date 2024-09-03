@@ -1,5 +1,6 @@
 import { create, all, random } from "mathjs";
 import { forwardPropogate } from "./utils.js";
+import { mse } from "./loss.js";
 
 const config = {};
 const math = create(all, config);
@@ -33,7 +34,9 @@ class Model {
 
       modelOutputs.push(output);
     }
-    console.log(modelOutputs);
+
+    let loss = mse(yTrue, yHat);
+    console.log(loss);
   }
 }
 

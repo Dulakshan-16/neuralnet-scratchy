@@ -1,5 +1,14 @@
 import Neuron from "./Neuron.js";
 
+export const getDimensions = (arr) => {
+  // This works given that each item in the array follows the dimension of the first element of each dimension
+  let dimensions = [];
+  while (Array.isArray(arr)) {
+    dimensions.push(arr.length);
+    arr = arr[0];
+  }
+  return dimensions;
+};
 export const randomWeight = () => Math.random() * 2 - 1;
 
 export const generateRandomWeightMatrix = (rows, columns) => {
@@ -44,6 +53,9 @@ export const forwardPropogate = (input, layers) => {
   layers[0].setInput(input);
   for (let i = 1; i < noLayers; i++) {
     let layerOutput = layers[i - 1].computeLayerOutput();
+
+    // Input dimensions of next layer is the current layer output's dimension
+    layers[i].inputShape = getDimensions(layerOutput);
 
     // Output of layer i - 1 is the input of layer i
     layers[i].setInput(layerOutput);
