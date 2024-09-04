@@ -4,11 +4,11 @@ const config = {};
 const math = create(all, config);
 
 class Neuron {
-  constructor(args) {
-    this._w = args.weights;
-    this._x = args.activations;
-    this._b = args.bias;
-    this._activation = args.activation;
+  constructor({ weights, activationFunction, bias, activations }) {
+    this._w = weights;
+    this._x = activations;
+    this._b = bias;
+    this._activation = activationFunction;
   }
 
   computeZ() {

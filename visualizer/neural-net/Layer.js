@@ -8,45 +8,54 @@ const config = {};
 const math = create(all, config);
 
 class Layer {
-  constructor(args) {
-    this._inputShape = args.inputShape;
-    this._noNodes = args.nodes
+  constructor({ inputShape, input, weights, activation = "linear", nodes }) {
+    this._inputShape = inputShape;
+    this._noNodes = nodes;
 
     if (this._inputShape === 1) {
-      this._input = [args.input];
+      this._input = [input];
     } else {
-      this._input = args.input;
+      this._input = input;
     }
 
     // Determine activation function
-    if (!args.activation) this._activation = activations["linear"];
-
-    if (args.activation in activations)
-      this._activation = activations[args.activation];
+    if (activation in activations) this._activation = activations[activation];
     else {
+      console.error("Invalid activation function.");
+
       this._activation = activations["linear"];
     }
 
-    // Initialize random weights if no weights are given
-    if (!args.weights) {
-      this._weights = generateRandomWeightMatrix(args.nodes, args.inputShape);
+    // Initialize random weights if no weights are given and inputShape argument is present
+    if (!weights && inputShape) {
+      this._weights = generateRandomWeightMatrix(nodes, inputShape);
+    } else {
+      // TODO: Add function to verify dimensions of given weights
+      this._weights = weights;
     }
 
-    // Create nodes for layer
+    // If input shape arguement is present, create nodes for layer
+
     this._nodes = initializeNodes(
       this._input,
       this._weights,
-      args.nodes,
+      this._noNodes,
       this._activation
     );
   }
 
   set inputShape(newInputShape) {
-    this._inputShape = newInputShape;
-    this._weights = generateRandomWeightMatrix(this._nodes.length, this._inputShape);
+    // If new input is not the current input, update weights according to the new input shape
+    if (newInputShape !== this._inputShape) {
+      this._inputShape = newInputShape;
+      this._weights = generateRandomWeightMatrix(
+        this._noNodes,
+        this._inputShape
+      );
 
-    for (let i = 0; i < this._nodes.length; i++) {
-      this._nodes[i]._w = this._weights[i]
+      for (let i = 0; i < this._nodes.length; i++) {
+        this._nodes[i]._w = this._weights[i];
+      }
     }
   }
   setInput(newInput) {

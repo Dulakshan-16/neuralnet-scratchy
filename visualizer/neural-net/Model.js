@@ -25,9 +25,9 @@ class Model {
     this._noLayers++;
   }
 
-  compile(args) {
-    this._loss = args.loss;
-    this._metrics = args.metrics;
+  compile({loss, metrics}) {
+    this._loss = loss;
+    this._metrics = metrics;
   }
 
   fit(inputs, labels, options) {

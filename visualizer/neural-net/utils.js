@@ -26,7 +26,6 @@ export const generateRandomWeightMatrix = (rows, columns) => {
       // console.log(weightMatrix[i][j]);
     }
   }
-  
 
   // console.log(weightMatrix);
 
@@ -35,6 +34,9 @@ export const generateRandomWeightMatrix = (rows, columns) => {
 
 export const initializeNodes = (input, weights, noNodes, activation) => {
   let nodes = new Array(noNodes);
+  let weightsPresent = true;
+
+  if (!weights) weights = new Array(noNodes);
 
   for (let i = 0; i < noNodes; i++) {
     nodes[i] = new Neuron({
@@ -43,7 +45,7 @@ export const initializeNodes = (input, weights, noNodes, activation) => {
       // Set bias to 0
       bias: 0,
       activations: input,
-      activation: activation,
+      activationFunction: activation,
     });
   }
 
