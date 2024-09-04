@@ -26,7 +26,7 @@ export const generateRandomWeightMatrix = (rows, columns) => {
       // console.log(weightMatrix[i][j]);
     }
   }
-  console.log(weightMatrix);
+  // console.log(weightMatrix);
 
   return weightMatrix;
 };
@@ -53,7 +53,8 @@ export const initializeNodes = (input, weights, noNodes, activation) => {
 export const forwardPropogate = (input, layers) => {
   let noLayers = layers.length;
 
-  layers[0].setInput(input);
+  layers[0].input = input;
+
   for (let i = 1; i < noLayers; i++) {
     let layerOutput = layers[i - 1].computeLayerOutput();
 
@@ -61,7 +62,7 @@ export const forwardPropogate = (input, layers) => {
     layers[i].inputShape = getDimensions(layerOutput);
 
     // Output of layer i - 1 is the input of layer i
-    layers[i].setInput(layerOutput);
+    layers[i].input = layerOutput;
   }
 
   let finalLayerOutput = layers[noLayers - 1].computeLayerOutput();

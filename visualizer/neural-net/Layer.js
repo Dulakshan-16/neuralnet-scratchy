@@ -57,7 +57,7 @@ class Layer {
       }
     }
   }
-  setInput(newInput) {
+  set input(newInput) {
     if (this._inputShape === 1) {
       this._input = [newInput];
     } else {
@@ -66,7 +66,7 @@ class Layer {
 
     // Change input of each neuron
     for (let i = 0; i < this._nodes.length; i++) {
-      this._nodes[i].x = this._input;
+      this._nodes[i]._x = this._input;
     }
   }
 

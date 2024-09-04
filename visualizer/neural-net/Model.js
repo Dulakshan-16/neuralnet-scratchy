@@ -43,8 +43,8 @@ class Model {
       modelOutputs.push(output);
     }
 
-    let loss = mse(yTrue, yHat);
-    // console.log(loss);
+    let loss = mse(labels, modelOutputs);
+    console.log(loss);
   }
 }
 

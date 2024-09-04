@@ -18,7 +18,7 @@ class Neuron {
   }
 
   computeOutput() {
-    const z = this._computeZ();
+    const z = this.computeZ();
     return this._activation(z);
   }
 }
