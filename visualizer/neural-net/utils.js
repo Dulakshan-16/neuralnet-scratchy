@@ -26,15 +26,13 @@ export const generateRandomWeightMatrix = (rows, columns) => {
       // console.log(weightMatrix[i][j]);
     }
   }
-
-  // console.log(weightMatrix);
+  console.log(weightMatrix);
 
   return weightMatrix;
 };
 
 export const initializeNodes = (input, weights, noNodes, activation) => {
   let nodes = new Array(noNodes);
-  let weightsPresent = true;
 
   if (!weights) weights = new Array(noNodes);
 

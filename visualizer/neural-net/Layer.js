@@ -35,7 +35,6 @@ class Layer {
     }
 
     // If input shape arguement is present, create nodes for layer
-
     this._nodes = initializeNodes(
       this._input,
       this._weights,
