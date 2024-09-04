@@ -26,6 +26,9 @@ export const generateRandomWeightMatrix = (rows, columns) => {
       // console.log(weightMatrix[i][j]);
     }
   }
+  
+
+  // console.log(weightMatrix);
 
   return weightMatrix;
 };

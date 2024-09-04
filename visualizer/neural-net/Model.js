@@ -1,4 +1,4 @@
-import { create, all, random } from "mathjs";
+import { create, all } from "mathjs";
 import { forwardPropogate } from "./utils.js";
 import { mse } from "./loss.js";
 
@@ -7,19 +7,27 @@ const math = create(all, config);
 
 class Model {
   constructor() {
-    this.layers = [];
-    this.optimizer;
-    this.loss;
-    this.metrics;
+    this._layers = [];
+    this._noLayers = 0;
+    this._optimizer;
+    this._loss;
+    this._metrics;
   }
 
   add(layer) {
-    this.layers.push(layer);
+    if (this._noLayers > 0) {
+      let prevLayer = this._layers[this._noLayers - 1]
+      
+      layer.inputShape = prevLayer._nodes.length;
+    }
+
+    this._layers.push(layer);
+    this._noLayers++;
   }
 
   compile(args) {
-    this.loss = args.loss;
-    this.metrics = args.metrics;
+    this._loss = args.loss;
+    this._metrics = args.metrics;
   }
 
   fit(inputs, labels, options) {
@@ -30,13 +38,13 @@ class Model {
     // Loop through dataset
     for (let i = 0; i < cardinality; i++) {
       // Run forward propogation through each datapoint
-      let output = forwardPropogate(inputs[i], this.layers);
+      let output = forwardPropogate(inputs[i], this._layers);
 
       modelOutputs.push(output);
     }
 
     let loss = mse(yTrue, yHat);
-    console.log(loss);
+    // console.log(loss);
   }
 }
 

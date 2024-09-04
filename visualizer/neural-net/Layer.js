@@ -9,55 +9,61 @@ const math = create(all, config);
 
 class Layer {
   constructor(args) {
-    this.inputShape = args.inputShape;
+    this._inputShape = args.inputShape;
+    this._noNodes = args.nodes
 
-    if (this.inputShape === 1) {
-      this.input = [args.input];
+    if (this._inputShape === 1) {
+      this._input = [args.input];
     } else {
-      this.input = args.input;
+      this._input = args.input;
     }
 
     // Determine activation function
-    if (!args.activation) this.activation = activations["linear"];
+    if (!args.activation) this._activation = activations["linear"];
 
     if (args.activation in activations)
-      this.activation = activations[args.activation];
+      this._activation = activations[args.activation];
     else {
-      this.activation = activations["linear"];
+      this._activation = activations["linear"];
     }
 
     // Initialize random weights if no weights are given
     if (!args.weights) {
-      this.weights = generateRandomWeightMatrix(args.nodes, args.inputShape);
+      this._weights = generateRandomWeightMatrix(args.nodes, args.inputShape);
     }
 
     // Create nodes for layer
-    this.nodes = initializeNodes(
-      this.input,
-      this.weights,
+    this._nodes = initializeNodes(
+      this._input,
+      this._weights,
       args.nodes,
-      this.activation
+      this._activation
     );
   }
 
-  setInput(newInput) {
+  set inputShape(newInputShape) {
+    this._inputShape = newInputShape;
+    this._weights = generateRandomWeightMatrix(this._nodes.length, this._inputShape);
 
-    if (this.inputShape === 1) {
-      this.input = [newInput];
+    for (let i = 0; i < this._nodes.length; i++) {
+      this._nodes[i]._w = this._weights[i]
+    }
+  }
+  setInput(newInput) {
+    if (this._inputShape === 1) {
+      this._input = [newInput];
     } else {
-      this.input = newInput;
+      this._input = newInput;
     }
 
-    console.log("updated input:", this.input);
-
     // Change input of each neuron
-    for (let i = 0; i < this.nodes.length; i++) {
-      this.nodes[i].x = this.input;
+    for (let i = 0; i < this._nodes.length; i++) {
+      this._nodes[i].x = this._input;
     }
   }
 
   computeLayerOutput() {
-    return this.nodes.map((node) => node.computeOutput());
+    return this._nodes.map((node) => node.computeOutput());
   }
 }
 

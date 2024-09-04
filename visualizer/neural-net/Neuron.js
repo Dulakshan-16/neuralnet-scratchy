@@ -5,21 +5,21 @@ const math = create(all, config);
 
 class Neuron {
   constructor(args) {
-    this.w = args.weights;
-    this.x = args.activations;
-    this.b = args.bias;
-    this.activation = args.activation;
+    this._w = args.weights;
+    this._x = args.activations;
+    this._b = args.bias;
+    this._activation = args.activation;
   }
 
   computeZ() {
-    console.log(this.w, this.x);
+    // console.log(this._w, this._x);
 
-    return math.dot(this.w, this.x) + this.b;
+    return math.dot(this._w, this._x) + this._b;
   }
 
   computeOutput() {
-    const z = this.computeZ();
-    return this.activation(z);
+    const z = this._computeZ();
+    return this._activation(z);
   }
 }
 
