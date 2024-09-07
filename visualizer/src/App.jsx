@@ -1,24 +1,23 @@
 import { useState } from "react";
 import NeuronGraphic from "./components/Neuron/NeuronGraphic";
-import LayerGraphic from "./components/LayerGraphic";
+import LayerGraphic from "./components/Layer/LayerGraphic";
 import Layer from "../neural-net/Layer";
+import Model from "../neural-net/Model";
 
 function App() {
-  let layer = new Layer({ inputShape: 1, activation: "sigmoid", nodes: 3 });
+  let model = new Model();
+
+  model.add(new Layer({ inputShape: 1, activation: "sigmoid", nodes: 4 }));
 
   return (
     <div>
       <svg
-        width="500"
+        width="1000"
         height="500"
         viewBox="0 0 500 500 "
         xmlns="http://www.w3.org/2000/svg"
       >
-        <NeuronGraphic
-          w={[-1, 0.5]}
-          x={[1, 2]}
-          activation={"linear"}
-        ></NeuronGraphic>
+        <LayerGraphic layer={model._layers[0]}></LayerGraphic>
       </svg>
     </div>
   );
