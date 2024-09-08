@@ -9,7 +9,7 @@ const NeuronGraphic = ({ w, x, activation, position, id }) => {
       <text x={position.x} y={position.y} textAnchor="middle" dy=".3em">
         <tspan x={position.x}>input: {x}</tspan>
         <tspan x={position.x} dy="1.2em">
-          weights: {w.toString()}
+          {/* weights: {w.toString()} */}
         </tspan>
         <tspan x={position.x} dy="1.2em">
           activation: {activation}

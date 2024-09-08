@@ -23,7 +23,6 @@ function App() {
         viewBox={`0 0 1000 1000`}
         xmlns="http://www.w3.org/2000/svg"
       >
-        <LayerGraphic layer={model._layers[0]}></LayerGraphic>
         <ModelGraphic model={model}></ModelGraphic>
       </svg>
     </div>
